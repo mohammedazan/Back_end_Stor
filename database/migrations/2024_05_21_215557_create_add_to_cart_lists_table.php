@@ -13,14 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('offer_product_lists', function (Blueprint $table) {
+        Schema::create('add_to_cart_lists', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('product_id');
-            $table->bigInteger('offer_id');
-            $table->decimal('max_quantity',11,2)->default(0);
-            $table->decimal('total_sell_quantity',11,2)->nullable();
-            $table->tinyInteger('offer_type')->comment('0=fixed,1=percentage');
-            $table->decimal('offer_amount',11,2);
+            $table->string('product_id');
+            $table->string('quantity');
+            $table->string('customer_id');
+            $table->string('offer_id')->nullable();
+            $table->decimal('offer_discount',11,2)->nullable();
+            $table->string('offer_exp_date')->nullable();
+            $table->string('date');
             $table->tinyInteger('status')->default(1)->comment('0=inactive,1=active');
             $table->timestamp('created_at')->nullable()->default(null);
             $table->unsignedInteger('created_by')->nullable()->default(null);
@@ -39,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('offer_product_lists');
+        Schema::dropIfExists('add_to_cart_lists');
     }
 };

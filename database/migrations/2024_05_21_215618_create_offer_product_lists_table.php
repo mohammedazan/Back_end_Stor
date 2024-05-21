@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -12,17 +13,14 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('purchase_product_lists', function (Blueprint $table) {
+        Schema::create('offer_product_lists', function (Blueprint $table) {
             $table->id();
-            $table->string('total_cost');
-            $table->decimal('total_vat',11,3)->nullable();
-            $table->decimal('total_discount',11,3)->nullable();
-            $table->string('purchase_code')->nullable();
-            $table->decimal('total_payable_amount',11,3);
-            $table->decimal('total_paid',11,3);
-            $table->decimal('total_due',11,3);
-            $table->bigInteger('supplier_id');
-            $table->timestamp('date');
+            $table->bigInteger('product_id');
+            $table->bigInteger('offer_id');
+            $table->decimal('max_quantity',11,2)->default(0);
+            $table->decimal('total_sell_quantity',11,2)->nullable();
+            $table->tinyInteger('offer_type')->comment('0=fixed,1=percentage');
+            $table->decimal('offer_amount',11,2);
             $table->tinyInteger('status')->default(1)->comment('0=inactive,1=active');
             $table->timestamp('created_at')->nullable()->default(null);
             $table->unsignedInteger('created_by')->nullable()->default(null);
@@ -41,6 +39,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('purchase_product_lists');
+        Schema::dropIfExists('offer_product_lists');
     }
 };
