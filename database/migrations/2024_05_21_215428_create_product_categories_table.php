@@ -13,16 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('product_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('phone');
-            $table->string('email')->nullable();
-            $table->string('roll_type');
-            $table->string('address');
-            $table->string('photo')->nullable();
-            $table->string('password');
+            $table->string('image')->nullable();
+            $table->string('note')->nullable();
             $table->tinyInteger('status')->default(1)->comment('0=inactive,1=active');
+            $table->tinyInteger('is_popular')->default(0)->comment('0=not popular,1=popular');
             $table->timestamp('created_at')->nullable()->default(null);
             $table->unsignedInteger('created_by')->nullable()->default(null);
             $table->timestamp('updated_at')->nullable()->default(null);
@@ -40,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('product_categories');
     }
 };

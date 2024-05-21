@@ -13,16 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('suppliers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('phone');
-            $table->string('email')->nullable();
-            $table->string('roll_type');
-            $table->string('address');
-            $table->string('photo')->nullable();
-            $table->string('password');
-            $table->tinyInteger('status')->default(1)->comment('0=inactive,1=active');
+            $table->string('supplier_name');
+            $table->string('image')->nullable();
+            $table->string('supplier_phone_one');
+            $table->string('supplier_phone_two')->nullable();
+            $table->string('company_name')->nullable();
+            $table->string('company_address')->nullable();
+            $table->string('supplier_address')->nullable();
+            $table->string('company_email')->nullable();
+            $table->string('company_phone')->nullable();
+            $table->string('supplier_email')->nullable();
+            $table->decimal('previous_due',11,3)->nullable();
+            $table->tinyInteger('status')->comment('0=inactive,1=active')->default(1);
             $table->timestamp('created_at')->nullable()->default(null);
             $table->unsignedInteger('created_by')->nullable()->default(null);
             $table->timestamp('updated_at')->nullable()->default(null);
@@ -40,6 +44,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('suppliers');
     }
 };

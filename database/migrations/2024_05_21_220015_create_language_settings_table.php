@@ -13,16 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('language_settings', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('phone');
-            $table->string('email')->nullable();
-            $table->string('roll_type');
-            $table->string('address');
-            $table->string('photo')->nullable();
-            $table->string('password');
-            $table->tinyInteger('status')->default(1)->comment('0=inactive,1=active');
+            $table->bigInteger('user_id');
+            $table->string('default_language')->comment('en,bn');
+            $table->tinyInteger('status')->comment('0=inactive,1=active')->default(1);
             $table->timestamp('created_at')->nullable()->default(null);
             $table->unsignedInteger('created_by')->nullable()->default(null);
             $table->timestamp('updated_at')->nullable()->default(null);
@@ -30,6 +25,7 @@ return new class extends Migration
             $table->tinyInteger('deleted')->default(0)->comment('0=active,1=deleted');
             $table->timestamp('deleted_at')->nullable()->default(null);
             $table->unsignedInteger('deleted_by')->nullable()->default(null);
+
         });
     }
 
@@ -40,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('language_settings');
     }
 };
